@@ -24,7 +24,7 @@
 
 - (NSArray *)rightHandSideElements
 {
-    return [[rightHandSide retain] autorelease];
+    return rightHandSide;
 }
 
 - (void)setRightHandSideElements:(NSArray *)rightHandSideElements
@@ -33,7 +33,6 @@
     {
         if (rightHandSide != rightHandSideElements)
         {
-            [rightHandSide release];
             rightHandSide = [rightHandSideElements mutableCopy];
         }
     }
@@ -41,7 +40,7 @@
 
 + (id)ruleWithName:(NSString *)name rightHandSideElements:(NSArray *)rightHandSideElements representitiveClass:(Class)representitiveClass
 {
-    return [[[self alloc] initWithName:name rightHandSideElements:rightHandSideElements representitiveClass:representitiveClass] autorelease];
+    return [[self alloc] initWithName:name rightHandSideElements:rightHandSideElements representitiveClass:representitiveClass];
 }
 
 - (id)initWithName:(NSString *)initName rightHandSideElements:(NSArray *)rightHandSideElements representitiveClass:(Class)initRepresentitiveClass
@@ -61,7 +60,7 @@
 
 + (id)ruleWithName:(NSString *)name rightHandSideElements:(NSArray *)rightHandSideElements tag:(NSUInteger)tag
 {
-    return [[[self alloc] initWithName:name rightHandSideElements:rightHandSideElements tag:tag] autorelease];
+    return [[self alloc] initWithName:name rightHandSideElements:rightHandSideElements tag:tag];
 }
 
 - (id)initWithName:(NSString *)initName rightHandSideElements:(NSArray *)rightHandSideElements tag:(NSUInteger)initTag
@@ -78,7 +77,7 @@
 
 + (id)ruleWithName:(NSString *)name rightHandSideElements:(NSArray *)rightHandSideElements
 {
-    return [[[CPRule alloc] initWithName:name rightHandSideElements:rightHandSideElements] autorelease];
+    return [[CPRule alloc] initWithName:name rightHandSideElements:rightHandSideElements];
 }
 
 - (id)initWithName:(NSString *)initName rightHandSideElements:(NSArray *)rightHandSideElements
@@ -95,6 +94,8 @@
 #define CPRuleNameKey                @"n"
 #define CPRuleRHSElementsKey         @"r"
 #define CPRuleRepresentitiveClassKey @"c"
+#define CPRuleShouldCollapseKey      @"s"
+#define CPRuleTagNamesKey            @"tn"
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -106,6 +107,11 @@
         [self setName:[aDecoder decodeObjectForKey:CPRuleNameKey]];
         [self setRightHandSideElements:[aDecoder decodeObjectForKey:CPRuleRHSElementsKey]];
         [self setRepresentitiveClass:NSClassFromString([aDecoder decodeObjectForKey:CPRuleRepresentitiveClassKey])];
+        [self setShouldCollapse:[[aDecoder decodeObjectForKey:CPRuleShouldCollapseKey] boolValue]];
+
+        NSArray *tagNamesArray = [aDecoder decodeObjectForKey:CPRuleTagNamesKey];
+        if(tagNamesArray.count)
+            [self setTagNames:[NSSet setWithArray:tagNamesArray]];
     }
     
     return self;
@@ -117,14 +123,18 @@
     [aCoder encodeObject:[self name] forKey:CPRuleNameKey];
     [aCoder encodeObject:[self rightHandSideElements] forKey:CPRuleRHSElementsKey];
     [aCoder encodeObject:NSStringFromClass([self representitiveClass]) forKey:CPRuleRepresentitiveClassKey];
-}
+    [aCoder encodeObject:@([self shouldCollapse]) forKey:CPRuleShouldCollapseKey];
 
-- (void)dealloc
-{
-    [name release];
-    [rightHandSide release];
-    
-    [super dealloc];
+    NSSet *tagNames = [self tagNames];
+    if([tagNames count]) {
+        NSSortDescriptor *tagNamesSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description"
+                                                                                 ascending:YES
+                                                                                  selector:@selector(caseInsensitiveCompare:)];
+
+        [aCoder encodeObject:[tagNames sortedArrayUsingDescriptors:@[tagNamesSortDescriptor]]
+                      forKey:CPRuleTagNamesKey];
+
+    }
 }
 
 - (NSString *)description
@@ -167,14 +177,13 @@
 
 - (NSSet *)tagNames
 {
-    return [[_tagNames retain] autorelease];
+    return _tagNames;
 }
 
 - (void)setTagNames:(NSSet *)tagNames
 {
     if (_tagNames != tagNames)
     {
-        [_tagNames release];
         _tagNames = [tagNames copy];
     }
 }

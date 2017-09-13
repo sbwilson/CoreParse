@@ -9,12 +9,12 @@
 #import "NSSetFunctional.h"
 
 
-@implementation NSSet(Functional)
+@implementation NSSet (Functional)
 
 - (NSSet *)cp_map:(id(^)(id obj))block
 {
     NSUInteger c = [self count];
-    id *resultingObjects = malloc(c * sizeof(id));
+    NSMutableArray *resultingObjects = [NSMutableArray arrayWithCapacity:c];
     
     NSUInteger nonNilCount = 0;
     for (id obj in self)
@@ -26,10 +26,8 @@
             nonNilCount++;
         }
     }
-    
-    NSSet *s = [NSSet setWithObjects:resultingObjects count:nonNilCount];
-    free(resultingObjects);
-    return s;
+
+    return [NSSet setWithArray:[resultingObjects subarrayWithRange:NSMakeRange(0, nonNilCount)]];
 }
 
 @end

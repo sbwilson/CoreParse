@@ -41,7 +41,6 @@
         BOOL succes = [self constructShiftReduceTables];
         if (!succes)
         {
-            [self release];
             return nil;
         }
     }
@@ -73,14 +72,6 @@
     [aCoder encodeObject:[self gotoTable]   forKey:CPShiftReduceParserGotoTableKey];
 }
 
-- (void)dealloc
-{
-    [actionTable release];
-    [gotoTable release];
-    
-    [super dealloc];
-}
-
 - (BOOL)constructShiftReduceTables
 {
     NSLog(@"CPShiftReduceParser is abstract, use one of it's concrete subclasses instead");
@@ -94,7 +85,7 @@
     @try
     {
         NSMutableArray *stateStack = [NSMutableArray arrayWithObject:[CPShiftReduceState shiftReduceStateWithObject:nil state:0]];
-        CPToken *nextToken = [[tokenStream peekToken] retain];
+        CPToken *nextToken = [tokenStream peekToken];
         BOOL hasErrorToken = NO;
         while (1)
         {
@@ -109,8 +100,7 @@
                     {
                         [tokenStream popToken];
                     }
-                    [nextToken release];
-                    nextToken = [[tokenStream peekToken] retain];
+                    nextToken = [tokenStream peekToken];
                     hasErrorToken = NO;
                 }
                 else if ([action isReduceAction])
@@ -169,7 +159,7 @@
                     Class c = [reductionRule representitiveClass];
                     if (nil != c)
                     {
-                        result = [[(id<CPParseResult>)[c alloc] initWithSyntaxTree:tree] autorelease];
+                        result = [(id<CPParseResult>)[c alloc] initWithSyntaxTree:tree];
                     }
                     
                     if (nil == result)
@@ -186,7 +176,6 @@
                 }
                 else if ([action isAccept])
                 {
-                    [nextToken release];
                     return [(CPShiftReduceState *)[stateStack lastObject] object];
                 }
                 else
@@ -200,7 +189,6 @@
                         }
                         else
                         {
-                            [nextToken release];
                             return nil;
                         }
                     }
@@ -209,14 +197,12 @@
                         switch ([recoveryAction recoveryType])
                         {
                             case CPRecoveryTypeAddToken:
-                                [nextToken release];
-                                nextToken = [[recoveryAction additionalToken] retain];
+                                nextToken = [recoveryAction additionalToken];
                                 hasErrorToken = YES;
                                 break;
                             case CPRecoveryTypeRemoveToken:
                                 [tokenStream popToken];
-                                [nextToken release];
-                                nextToken = [[tokenStream peekToken] retain];
+                                nextToken = [tokenStream peekToken];
                                 hasErrorToken = NO;
                                 break;
                             case CPRecoveryTypeBail:

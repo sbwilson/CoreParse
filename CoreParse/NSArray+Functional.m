@@ -13,7 +13,7 @@
 - (NSArray *)cp_map:(id(^)(id obj))block
 {
     NSUInteger c = [self count];
-    id *resultingObjects = malloc(c * sizeof(id));
+    NSMutableArray *resultingObjects = [NSMutableArray arrayWithCapacity:c];
     
     NSUInteger nonNilCount = 0;
     for (id obj in self)
@@ -26,9 +26,7 @@
         }
     }
     
-    NSArray *a = [NSArray arrayWithObjects:resultingObjects count:nonNilCount];
-    free(resultingObjects);
-    return a;
+    return [[resultingObjects subarrayWithRange:NSMakeRange(0, nonNilCount)] copy];
 }
 
 @end
