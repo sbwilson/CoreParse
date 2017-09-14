@@ -91,30 +91,6 @@
 		9F0FC4361DDC5D8600ADF71F /* NSSetFunctional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F38820C132432AA000C8876 /* NSSetFunctional.m */; };
 		9F0FC4371DDC5D8600ADF71F /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA6430615E2C5130004FCD3 /* NSArray+Functional.m */; };
 		9F0FC4391DDC5DA200ADF71F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0FC4381DDC5DA200ADF71F /* CoreFoundation.framework */; };
-		9F3C82521F6967AF00E6CFE5 /* CPSTAssertionsTests.h in Headers */ = {isa = PBXBuildFile; fileRef = DA2B1DF61566B704002FDBD7 /* CPSTAssertionsTests.h */; };
-		9F3C82531F6967AF00E6CFE5 /* CPSTAssertionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2B1DF71566B704002FDBD7 /* CPSTAssertionsTests.m */; };
-		9F3C82541F6967AF00E6CFE5 /* CPTestEvaluatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FB3EB22132BA02C00ACC453 /* CPTestEvaluatorDelegate.h */; };
-		9F3C82551F6967AF00E6CFE5 /* CPTestEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3EB23132BA02C00ACC453 /* CPTestEvaluatorDelegate.m */; };
-		9F3C82561F6967AF00E6CFE5 /* CPTestErrorEvaluatorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F893A2114DEF40D00316FF7 /* CPTestErrorEvaluatorDelegate.h */; };
-		9F3C82571F6967AF00E6CFE5 /* CPTestErrorEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F893A2214DEF40D00316FF7 /* CPTestErrorEvaluatorDelegate.m */; };
-		9F3C82581F6967AF00E6CFE5 /* CPTestWhiteSpaceIgnoringDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FB81320132FEDAF0095982D /* CPTestWhiteSpaceIgnoringDelegate.h */; };
-		9F3C82591F6967AF00E6CFE5 /* CPTestWhiteSpaceIgnoringDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB81321132FEDAF0095982D /* CPTestWhiteSpaceIgnoringDelegate.m */; };
-		9F3C825A1F6967AF00E6CFE5 /* CPTestMapCSSTokenisingDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FB81324132FF16E0095982D /* CPTestMapCSSTokenisingDelegate.h */; };
-		9F3C825B1F6967AF00E6CFE5 /* CPTestMapCSSTokenisingDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB81325132FF16E0095982D /* CPTestMapCSSTokenisingDelegate.m */; };
-		9F3C825C1F6967AF00E6CFE5 /* CPTestErrorHandlingDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FA68DA314DE9D3D005519B9 /* CPTestErrorHandlingDelegate.h */; };
-		9F3C825D1F6967AF00E6CFE5 /* CPTestErrorHandlingDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA68DA414DE9D3D005519B9 /* CPTestErrorHandlingDelegate.m */; };
-		9F3C825E1F6967AF00E6CFE5 /* CPRegexpRecogniserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5419721C188F9A54004240B4 /* CPRegexpRecogniserTest.m */; };
-		9F3C825F1F6967AF00E6CFE5 /* CPWillFinishDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC3E9BEE191DBAC800F6023C /* CPWillFinishDelegateTest.m */; };
-		9F3C82601F6967AF00E6CFE5 /* Expression.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F9F839F13B731F3006E939D /* Expression.h */; };
-		9F3C82611F6967AF00E6CFE5 /* Expression.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83A013B731F3006E939D /* Expression.m */; };
-		9F3C82621F6967AF00E6CFE5 /* Term.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F9F83A413B732AC006E939D /* Term.h */; };
-		9F3C82631F6967AF00E6CFE5 /* Term.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F83A513B732AC006E939D /* Term.m */; };
-		9F3C82641F6967AF00E6CFE5 /* Expression2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FA4386B162F515C00B92704 /* Expression2.h */; };
-		9F3C82651F6967AF00E6CFE5 /* Expression2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4386C162F515C00B92704 /* Expression2.m */; };
-		9F3C82661F6967AF00E6CFE5 /* RuleBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FA4386D162F515C00B92704 /* RuleBase.h */; };
-		9F3C82671F6967AF00E6CFE5 /* RuleBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4386E162F515C00B92704 /* RuleBase.m */; };
-		9F3C82681F6967AF00E6CFE5 /* Term2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FA4386F162F515C00B92704 /* Term2.h */; };
-		9F3C82691F6967AF00E6CFE5 /* Term2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA43870162F515C00B92704 /* Term2.m */; };
 		9F3C826B1F69684F00E6CFE5 /* CPSTAssertionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2B1DF71566B704002FDBD7 /* CPSTAssertionsTests.m */; };
 		9F3C826C1F69684F00E6CFE5 /* CPTestEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3EB23132BA02C00ACC453 /* CPTestEvaluatorDelegate.m */; };
 		9F3C826D1F69684F00E6CFE5 /* CPTestErrorEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F893A2214DEF40D00316FF7 /* CPTestErrorEvaluatorDelegate.m */; };
@@ -557,12 +533,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F3C82621F6967AF00E6CFE5 /* Term.h in Headers */,
 				9F0FC40B1DDC5BD800ADF71F /* CPRecoveryAction.h in Headers */,
 				9F0FC3FF1DDC5BD800ADF71F /* CPParser.h in Headers */,
 				9F0FC3FC1DDC5BD800ADF71F /* CPRHSItem.h in Headers */,
 				9F0FC4001DDC5BD800ADF71F /* CPShiftReduceAction.h in Headers */,
-				9F3C82681F6967AF00E6CFE5 /* Term2.h in Headers */,
 				9F0FC4061DDC5BD800ADF71F /* CPShiftReduceParserProtectedMethods.h in Headers */,
 				9F0FC40F1DDC5BF000ADF71F /* CoreParse.h in Headers */,
 				9F0FC3F31DDC5BD800ADF71F /* CPIdentifierToken.h in Headers */,
@@ -571,23 +545,17 @@
 				9F0FC3E71DDC5BD800ADF71F /* CPKeywordRecogniser.h in Headers */,
 				9F0FC3EA1DDC5BD800ADF71F /* CPIdentifierRecogniser.h in Headers */,
 				9F0FC4081DDC5BD800ADF71F /* CPSLRParser.h in Headers */,
-				9F3C825C1F6967AF00E6CFE5 /* CPTestErrorHandlingDelegate.h in Headers */,
 				9F0FC3F71DDC5BD800ADF71F /* CPGrammarInternal.h in Headers */,
 				9F0FC3EE1DDC5BD800ADF71F /* CPEOFToken.h in Headers */,
 				9F0FC4091DDC5BD800ADF71F /* CPLR1Parser.h in Headers */,
-				9F3C82521F6967AF00E6CFE5 /* CPSTAssertionsTests.h in Headers */,
-				9F3C82581F6967AF00E6CFE5 /* CPTestWhiteSpaceIgnoringDelegate.h in Headers */,
 				9F0FC3F51DDC5BD800ADF71F /* CPGrammar.h in Headers */,
 				9F0FC3F21DDC5BD800ADF71F /* CPWhiteSpaceToken.h in Headers */,
 				9F0FC40A1DDC5BD800ADF71F /* CPLALR1Parser.h in Headers */,
 				9F0FC4071DDC5BD800ADF71F /* CPShiftReduceParser.h in Headers */,
-				9F3C825A1F6967AF00E6CFE5 /* CPTestMapCSSTokenisingDelegate.h in Headers */,
 				9F0FC3F61DDC5BD800ADF71F /* CPGrammarPrivate.h in Headers */,
 				9F0FC3E81DDC5BD800ADF71F /* CPNumberRecogniser.h in Headers */,
 				9F0FC4011DDC5BD800ADF71F /* CPShiftReduceState.h in Headers */,
-				9F3C82601F6967AF00E6CFE5 /* Expression.h in Headers */,
 				9F0FC3E61DDC5BD800ADF71F /* CPTokenRecogniser.h in Headers */,
-				9F3C82641F6967AF00E6CFE5 /* Expression2.h in Headers */,
 				9F0FC3F41DDC5BD800ADF71F /* CPQuotedToken.h in Headers */,
 				9F0FC3EF1DDC5BD800ADF71F /* CPErrorToken.h in Headers */,
 				9F0FC3FD1DDC5BD800ADF71F /* CPRHSItemResult.h in Headers */,
@@ -603,15 +571,12 @@
 				9F0FC3FA1DDC5BD800ADF71F /* CPGrammarSymbol.h in Headers */,
 				9F0FC4021DDC5BD800ADF71F /* CPShiftReduceActionTable.h in Headers */,
 				9F0FC3F11DDC5BD800ADF71F /* CPNumberToken.h in Headers */,
-				9F3C82661F6967AF00E6CFE5 /* RuleBase.h in Headers */,
 				9F0FC4051DDC5BD800ADF71F /* CPLR1Item.h in Headers */,
 				9F0FC40E1DDC5BD800ADF71F /* NSArray+Functional.h in Headers */,
 				9F0FC40C1DDC5BD800ADF71F /* CPJSONParser.h in Headers */,
-				9F3C82541F6967AF00E6CFE5 /* CPTestEvaluatorDelegate.h in Headers */,
 				9F0FC3EC1DDC5BD800ADF71F /* CPRegexpRecogniser.h in Headers */,
 				9F0FC3F01DDC5BD800ADF71F /* CPKeywordToken.h in Headers */,
 				9F0FC3ED1DDC5BD800ADF71F /* CPToken.h in Headers */,
-				9F3C82561F6967AF00E6CFE5 /* CPTestErrorEvaluatorDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +651,7 @@
 					};
 					9FE5243B1DDC56F8000167D7 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = DLJSV665V8;
 					};
 				};
 			};
@@ -783,10 +749,8 @@
 				9F0FC4121DDC5D8600ADF71F /* CPTokenStream.m in Sources */,
 				9F0FC4301DDC5D8600ADF71F /* CPShiftReduceParser.m in Sources */,
 				9F0FC4151DDC5D8600ADF71F /* CPWhiteSpaceRecogniser.m in Sources */,
-				9F3C825B1F6967AF00E6CFE5 /* CPTestMapCSSTokenisingDelegate.m in Sources */,
 				9F0FC4291DDC5D8600ADF71F /* CPParser.m in Sources */,
 				9F0FC4131DDC5D8600ADF71F /* CPKeywordRecogniser.m in Sources */,
-				9F3C82671F6967AF00E6CFE5 /* RuleBase.m in Sources */,
 				9F0FC42E1DDC5D8600ADF71F /* CPItem.m in Sources */,
 				9F0FC42B1DDC5D8600ADF71F /* CPShiftReduceState.m in Sources */,
 				9F0FC4311DDC5D8600ADF71F /* CPSLRParser.m in Sources */,
@@ -797,15 +761,9 @@
 				9F0FC4331DDC5D8600ADF71F /* CPLALR1Parser.m in Sources */,
 				9F0FC42A1DDC5D8600ADF71F /* CPShiftReduceAction.m in Sources */,
 				9F0FC4361DDC5D8600ADF71F /* NSSetFunctional.m in Sources */,
-				9F3C82551F6967AF00E6CFE5 /* CPTestEvaluatorDelegate.m in Sources */,
 				9F0FC4161DDC5D8600ADF71F /* CPIdentifierRecogniser.m in Sources */,
 				9F0FC42D1DDC5D8600ADF71F /* CPShiftReduceGotoTable.m in Sources */,
 				9F0FC4321DDC5D8600ADF71F /* CPLR1Parser.m in Sources */,
-				9F3C82591F6967AF00E6CFE5 /* CPTestWhiteSpaceIgnoringDelegate.m in Sources */,
-				9F3C825D1F6967AF00E6CFE5 /* CPTestErrorHandlingDelegate.m in Sources */,
-				9F3C82691F6967AF00E6CFE5 /* Term2.m in Sources */,
-				9F3C825F1F6967AF00E6CFE5 /* CPWillFinishDelegateTest.m in Sources */,
-				9F3C82611F6967AF00E6CFE5 /* Expression.m in Sources */,
 				9F0FC4191DDC5D8600ADF71F /* CPToken.m in Sources */,
 				9F0FC4271DDC5D8600ADF71F /* CPRHSItemResult.m in Sources */,
 				9F0FC41B1DDC5D8600ADF71F /* CPErrorToken.m in Sources */,
@@ -816,17 +774,12 @@
 				9F0FC41F1DDC5D8600ADF71F /* CPIdentifierToken.m in Sources */,
 				9F0FC4171DDC5D8600ADF71F /* CPQuotedRecogniser.m in Sources */,
 				9F0FC4251DDC5D8600ADF71F /* CPGrammarSymbol.m in Sources */,
-				9F3C825E1F6967AF00E6CFE5 /* CPRegexpRecogniserTest.m in Sources */,
 				9F0FC42C1DDC5D8600ADF71F /* CPShiftReduceActionTable.m in Sources */,
 				9F0FC4351DDC5D8600ADF71F /* CPJSONParser.m in Sources */,
-				9F3C82651F6967AF00E6CFE5 /* Expression2.m in Sources */,
 				9F0FC41A1DDC5D8600ADF71F /* CPEOFToken.m in Sources */,
 				9F0FC4341DDC5D8600ADF71F /* CPRecoveryAction.m in Sources */,
-				9F3C82631F6967AF00E6CFE5 /* Term.m in Sources */,
 				9F0FC4211DDC5D8600ADF71F /* CPGrammar.m in Sources */,
 				9F0FC4261DDC5D8600ADF71F /* CPRHSItem.m in Sources */,
-				9F3C82571F6967AF00E6CFE5 /* CPTestErrorEvaluatorDelegate.m in Sources */,
-				9F3C82531F6967AF00E6CFE5 /* CPSTAssertionsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1066,6 +1019,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DLJSV665V8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1112,6 +1066,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DLJSV665V8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
