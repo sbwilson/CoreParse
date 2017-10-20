@@ -90,7 +90,6 @@
 		9F0FC4351DDC5D8600ADF71F /* CPJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F45A2E313422E1300092D78 /* CPJSONParser.m */; };
 		9F0FC4361DDC5D8600ADF71F /* NSSetFunctional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F38820C132432AA000C8876 /* NSSetFunctional.m */; };
 		9F0FC4371DDC5D8600ADF71F /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA6430615E2C5130004FCD3 /* NSArray+Functional.m */; };
-		9F0FC4391DDC5DA200ADF71F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0FC4381DDC5DA200ADF71F /* CoreFoundation.framework */; };
 		9F3C826B1F69684F00E6CFE5 /* CPSTAssertionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2B1DF71566B704002FDBD7 /* CPSTAssertionsTests.m */; };
 		9F3C826C1F69684F00E6CFE5 /* CPTestEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB3EB23132BA02C00ACC453 /* CPTestEvaluatorDelegate.m */; };
 		9F3C826D1F69684F00E6CFE5 /* CPTestErrorEvaluatorDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F893A2214DEF40D00316FF7 /* CPTestErrorEvaluatorDelegate.m */; };
@@ -251,7 +250,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F0FC4391DDC5DA200ADF71F /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +604,6 @@
 				9FE5242F1DDC56F7000167D7 /* Frameworks */,
 				9FE524301DDC56F7000167D7 /* Headers */,
 				9FE524311DDC56F7000167D7 /* Resources */,
-				9F0FC4101DDC5D2700ADF71F /* Build dynamic fat binary */,
 				9F3C82371F69479B00E6CFE5 /* Copy to Project Folder */,
 			);
 			buildRules = (
@@ -706,20 +703,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/appledoc --logformat xcode \\\n         --exit-threshold 4 \\\n         --create-html \\\n         --no-create-docset \\\n         -o $SOURCE_ROOT/../CoreParseDocs/ \\\n         --project-name CoreParse \\\n         --project-version 0.9 \\\n         --project-company Beelsebob \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceAction.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceState.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceActionTable.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceGotoTable.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPItem.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPLR1Item.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceParserProtectedMethods.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPRHSItem.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPRHSItemResult.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPGrammar.m \\\n         $SOURCE_ROOT/CoreParse\n";
 		};
-		9F0FC4101DDC5D2700ADF71F /* Build dynamic fat binary */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build dynamic fat binary";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\n\n\tUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n\t# make sure the output directory exists\n\tmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n\t# Next, work out if we're in SIM or DEVICE\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\t# Step 1. Build Device or Simulator versions\n\n\t\tif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\n\t\tthen\n\t\t\txcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\t\telse\n\t\t\txcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\t\tfi\n\n\t\t# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\n\t\tcp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n\t\t# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\n\t\tSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\n\t\tif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\n\t\t\tcp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\n\t\tfi\n\n\t\t# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\n\t\tlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n\t\t# Step 5. Convenience step to copy the framework to the project's directory\n\t\tcp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n\t\t# Step 6. Convenience step to open the project's directory in Finder\n\t\t# open \"${PROJECT_DIR}\"\n\n\tfi\n\nfi\n";
-		};
 		9F3C82371F69479B00E6CFE5 /* Copy to Project Folder */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -732,7 +715,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\tcp -R \"${BUILD_DIR}/${CONFIGURATION}-universal/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\tfi\n\nfi";
+			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\t\tcp -R \"${CODESIGNING_FOLDER_PATH}\" \"${PROJECT_DIR}\"\n\tfi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -888,6 +871,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+					x86_64,
+					i386,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -932,13 +922,20 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreParse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphoneos";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphonesimulator";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.innometrics.CoreParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				"SDKROOT[arch=i386]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
+				"SDKROOT[arch=x86_64]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -948,6 +945,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+					x86_64,
+					i386,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -986,13 +990,20 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreParse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphoneos";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphonesimulator";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.innometrics.CoreParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				"SDKROOT[arch=i386]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
+				"SDKROOT[arch=x86_64]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
