@@ -730,7 +730,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\t# if [[ ${CONFIGURATION} == \"Release\" ]]\n\t\t# then\n\t\t# \tcp -R \"${BUILD_DIR}/${CONFIGURATION}-universal/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\t# else\n\t\tcp -R \"${CODESIGNING_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\n\t\tDSYM_FOLDER_PATH=\"${CONFIGURATION_BUILD_DIR}/${PROJECT_NAME}.framework.dSYM\"\n\t\tif [ -d ${DSYM_FOLDER_PATH} ]; then\n\t\t\tcp -R \"${DSYM_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\tfi\n\tfi\nfi";
+			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\t# if [[ ${CONFIGURATION} == \"Release\" ]]\n\t\t# then\n\t\t# \tcp -R \"${BUILD_DIR}/${CONFIGURATION}-universal/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\t# else\n        mkdir -p ${PROJECT_DIR}/build/${CONFIGURATION}\n\t\tcp -R \"${CODESIGNING_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\n\t\tDSYM_FOLDER_PATH=\"${CONFIGURATION_BUILD_DIR}/${PROJECT_NAME}.framework.dSYM\"\n\t\tif [ -d ${DSYM_FOLDER_PATH} ]; then\n\t\t\tcp -R \"${DSYM_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\tfi\n\tfi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
