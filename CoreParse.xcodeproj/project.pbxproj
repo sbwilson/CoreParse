@@ -604,6 +604,7 @@
 				9FE5242F1DDC56F7000167D7 /* Frameworks */,
 				9FE524301DDC56F7000167D7 /* Headers */,
 				9FE524311DDC56F7000167D7 /* Resources */,
+				9F0FC4101DDC5D2700ADF71F /* Build dynamic fat binary */,
 				9F3C82371F69479B00E6CFE5 /* Copy to Project Folder */,
 			);
 			buildRules = (
@@ -703,6 +704,20 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/appledoc --logformat xcode \\\n         --exit-threshold 4 \\\n         --create-html \\\n         --no-create-docset \\\n         -o $SOURCE_ROOT/../CoreParseDocs/ \\\n         --project-name CoreParse \\\n         --project-version 0.9 \\\n         --project-company Beelsebob \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceAction.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceState.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceActionTable.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceGotoTable.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPItem.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPLR1Item.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Parsers/CPShiftReduceParsers/CPShiftReduceParserProtectedMethods.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPRHSItem.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPRHSItemResult.h \\\n         --ignore $SOURCE_ROOT/CoreParse/Grammar/CPGrammar.m \\\n         $SOURCE_ROOT/CoreParse\n";
 		};
+		9F0FC4101DDC5D2700ADF71F /* Build dynamic fat binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build dynamic fat binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\nif [[ ${CONFIGURATION} == \"Release\" && !(${PLATFORM_NAME} == \"iphonesimulator\") && !(${BUILD_DIR} == *\"XcodeServer\"*) && !(${CARTHAGE} == \"YES\") ]]\nthen\n\t# Next, work out if we're in SIM or DEVICE\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\t# Step 1. Build Simulator version\n\t\txcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n\t\t# Step 2. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\n\t\tSIMULATOR_FOLDER_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework\"\n\t\tSIMULATOR_SWIFT_MODULES_DIR=\"${SIMULATOR_FOLDER_PATH}/Modules/${PROJECT_NAME}.swiftmodule/.\"\n\t\tif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\n\t\t\tcp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${CODESIGNING_FOLDER_PATH}/Modules/${PROJECT_NAME}.swiftmodule\"\n\t\tfi\n\n\t\t# Step 3. Rename Device version\n\t\tmv ${CODESIGNING_FOLDER_PATH}/${PROJECT_NAME} ${CODESIGNING_FOLDER_PATH}/${PROJECT_NAME}_arm\n\n\t\t# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\n\t\tlipo -create -output \"${CODESIGNING_FOLDER_PATH}/${PROJECT_NAME}\" \"${SIMULATOR_FOLDER_PATH}/${PROJECT_NAME}\" \"${CODESIGNING_FOLDER_PATH}/${PROJECT_NAME}_arm\"\n\n\t\t# Step 5. Delete Device version\n\t\trm ${CODESIGNING_FOLDER_PATH}/${PROJECT_NAME}_arm\n\n\tfi\nfi";
+		};
 		9F3C82371F69479B00E6CFE5 /* Copy to Project Folder */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -715,7 +730,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\t\tcp -R \"${CODESIGNING_FOLDER_PATH}\" \"${PROJECT_DIR}\"\n\tfi\nfi";
+			shellScript = "#!/bin/sh\nif [[ !(${BUILD_DIR} == *\"XcodeServer\"*) ]]\nthen\n\tif [ \"false\" == ${ALREADYINVOKED:-false} ]\n\tthen\n\t\texport ALREADYINVOKED=\"true\"\n\n\t\t# if [[ ${CONFIGURATION} == \"Release\" ]]\n\t\t# then\n\t\t# \tcp -R \"${BUILD_DIR}/${CONFIGURATION}-universal/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\t# else\n\t\tcp -R \"${CODESIGNING_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\n\t\tDSYM_FOLDER_PATH=\"${CONFIGURATION_BUILD_DIR}/${PROJECT_NAME}.framework.dSYM\"\n\t\tif [ -d ${DSYM_FOLDER_PATH} ]; then\n\t\t\tcp -R \"${DSYM_FOLDER_PATH}\" \"${PROJECT_DIR}/build/${CONFIGURATION}\"\n\t\tfi\n\tfi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -871,13 +886,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					arm64,
-					armv7,
-					armv7s,
-					x86_64,
-					i386,
-				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -905,7 +913,6 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -922,17 +929,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreParse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphoneos";
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphonesimulator";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.innometrics.CoreParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				"SDKROOT[arch=i386]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
-				"SDKROOT[arch=x86_64]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
@@ -945,13 +946,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					arm64,
-					armv7,
-					armv7s,
-					x86_64,
-					i386,
-				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -979,7 +973,6 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -990,16 +983,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreParse/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphoneos";
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(TOOLCHAIN_DIR)/usr/lib/swift/iphonesimulator";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.innometrics.CoreParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				"SDKROOT[arch=i386]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
-				"SDKROOT[arch=x86_64]" = "$(CORRESPONDING_SIMULATOR_SDK_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
